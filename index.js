@@ -23,13 +23,15 @@ export const slugs = new Slugger()
  *   enableCustomId?: boolean,
  *   maintainCase?: boolean,
  *   removeAccents?: boolean
+ *   prefix?: string
  * }} properties
  */
 export function getHeaderNodeId(node, properties = {}) {
   const {
     enableCustomId = false,
     maintainCase = false,
-    removeAccents = false
+    removeAccents = false,
+    prefix = ""
   } = properties
 
   /**
@@ -45,9 +47,9 @@ export function getHeaderNodeId(node, properties = {}) {
     // This regex matches to preceding spaces and {#custom-id} at the end of a string.
     // Also, checks the text of node won't be empty after the removal of {#custom-id}.
     // @ts-ignore
-    const match = /^(.*?)\s*{#([\w-]+)}$/.exec(toString(last))
+    const match = /^(.*?)\s*\(#([\w-]+)\)$/.exec(toString(last))
     if (match && (match[1] || headerNode.children.length > 1)) {
-      id = match[2]
+      id = prefix + match[2]
       // Remove the custom ID from the original text.
       if (match[1]) {
         // @ts-ignore
