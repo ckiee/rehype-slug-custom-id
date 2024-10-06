@@ -63,7 +63,7 @@ export function getHeaderNodeId(node, properties = {}) {
   if (!id) {
     // @ts-ignore
     const slug = slugs.slug(toString(headerNode), maintainCase)
-    id = removeAccents ? deburr(slug) : slug
+    id = prefix + (removeAccents ? deburr(slug) : slug)
   }
 
   return {id, isCustomId}
