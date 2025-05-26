@@ -31,7 +31,7 @@ export function getHeaderNodeId(node, properties = {}) {
     enableCustomId = false,
     maintainCase = false,
     removeAccents = false,
-    prefix = ""
+    prefix = ''
   } = properties
 
   /**
@@ -93,7 +93,18 @@ export default function rehypeSlug(properties = {}) {
         const {id, isCustomId} = getHeaderNodeId(node, properties)
 
         if (isCustomId) node.children.pop()
-        node.properties.id = id
+        if ((node.properties.id = id)) {
+          node.children.push({
+            type: 'element',
+            tagName: 'a',
+            properties: {
+              href: `#${node.properties.id}`,
+              class: "rehype-slug-custom-id",
+              title: "Link to this section"
+            },
+            children: []
+          })
+        }
       }
     })
   }
