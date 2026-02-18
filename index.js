@@ -100,9 +100,9 @@ export default function rehypeSlug(properties = {}) {
             properties: {
               href: `#${node.properties.id}`,
               class: 'rehype-slug-custom-id',
-              title: 'Link to this section'
+              title: 'Link to section'
             },
-            children: [{type: 'text', value: 'Link to this section'}]
+            children: [{type: 'text', value: 'Link to section'}]
           })
         }
       }
